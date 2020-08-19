@@ -11,9 +11,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
-            background: url(images/bg-image.jpg) no-repeat;
+             background: url(images/bg-3.webp) no-repeat; 
             background-size: cover;
             height: 100vh;
+        }
+
+        #weatherImg {
+            margin-top: 0px;
+            width: 120px;
         }
     </style>
 </head>
@@ -21,51 +26,26 @@
 <body>
 
     <div class="container">
-        <h1 class="text-uppercase text-light mt-2 p-1 text-center">check your weather</h1>
+        <h1 class="text-uppercase text-light mt-3 p-1 text-center">check your weather</h1>
         <form class="col-md-6 m-auto py-5">
-            <div class="input-group mb-1">
-                <input id = "locationInput" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+            <div class="input-group">
+                <input id="locationInput" type="text" class="form-control"
+                    placeholder="Enter a location for Weather ...">
                 <div class="input-group-append">
-                    <button id = "locationSubmit" type="button" class="btn btn-danger">Search</button>
+                    <button id="locationSubmit" type="button" class="btn btn-danger">Search</button>
                 </div>
             </div>
         </form>
-        <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
-            <h1 id = "cityLocation" class="text-uppercase">.....</h1>
-            <h3><span id = "temperature">0</span>&deg;C</h3>
-            <h1 class="lead text-uppercase" id = "leadText">----</h1>
+        <div id="information" class="weather-status text-white text-center  pb-0 mb-0">
+                
+        </div>
+        <div id="informationOff" class="weather-status text-white text-center pb-0 mb-0">
+                <img id="weatherImg" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+                <h1 class="text-uppercase">.....</h1>
+                <h3><span>0</span>&deg;C</h3>
         </div>
     </div>
-
-    <script>
-        let locationInput = document.getElementById("locationInput");
-        const locationSubmit = document.getElementById("locationSubmit");
-        const cityLocation = document.getElementById("cityLocation");
-        const temperature = document.getElementById("temperature");
-        const leadText = document.getElementById("leadText");
-
-        locationSubmit.addEventListener("click", function(){
-            fetch('https://api.openweathermap.org/data/2.5/weather?q='+locationInput.value+'&appid=e7b52a76fe020c052fc460ab6401f5f3')
-                .then(res => res.json())
-                .then(data => {
-                   let cityValue = data['name'];
-                   let temperatureValue = data ['main']['temp']; 
-                   let descriptionValue = data ['weather'][0]['description'];
-                   let b = temperatureValue - 273.15;
-                   let c = b.toFixed(0);
-
-                   cityLocation.innerHTML = cityValue;
-                   temperature.innerHTML = c;
-                   leadText.innerHTML = descriptionValue;
-                   locationInput.value ='';
-                })
-                .catch(err => alert('Please give a valid city name!'))
-        });
-
-        
-
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
